@@ -10,5 +10,6 @@ Process/Learning Notes
   * Function-based components
   * Env files local
   * State & props introduction, de-structuring etc. 
+  * Passing props up, search api functionality
 
   

@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+
 
 // this component is class-based because it has forms which need component level state
 class Search extends Component {
 
-  // initialise state 
+  // initialise input state 
   state = {
     text : ''
   }
@@ -15,16 +17,22 @@ class Search extends Component {
   // onSubmit event function for search text input
   onSubmit = (e) => {
     e.preventDefault();
+    // validate input & set alert if inadequate
+    if(this.state.text === ''){
+      // set alert
+      this.props.setAlert('Please enter something' , 'light')
+    } else {
     // props function to pass back to app.js
-    this.props.searchUsers(this.state.text);
-    this.setState({ text:''});
+      this.props.searchUsers(this.state.text);
+      this.setState({ text:''});
+    }
   }
 
 
   render() {
     return (
       <div>
-        <form onSubmit = {this.onSubmit}>
+        <form onSubmit = {this.onSubmit} setAlert={this.setAlert}>
           <input type="text" 
           name="text" 
           placeholder="Search Github User..."
@@ -38,9 +46,19 @@ class Search extends Component {
           className ="btn btn-dark btn-block"
           />
         </form>
+        {this.props.showClear && <button className="btn btn-light btn-block" onClick = {this.props.clearUsers}>Clear Search</button> }
       </div>
     )
   }
 }
+
+// prop types
+Search.propTypes = {
+  searchUsers : PropTypes.func.isRequired,
+  clearUsers : PropTypes.func.isRequired,
+  setAlert : PropTypes.func.isRequired,
+  showClear : PropTypes.bool.isRequired,
+}
+
 
 export default Search

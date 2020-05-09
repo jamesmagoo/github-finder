@@ -20,7 +20,7 @@ class Search extends Component {
     // validate input & set alert if inadequate
     if(this.state.text === ''){
       // set alert
-      this.props.setAlert('Please enter something' , 'light')
+      this.props.setalert('Please enter something' , 'light')
     } else {
     // props function to pass back to app.js
       this.props.searchUsers(this.state.text);
@@ -32,7 +32,7 @@ class Search extends Component {
   render() {
     return (
       <div>
-        <form onSubmit = {this.onSubmit} setAlert={this.setAlert}>
+        <form onSubmit = {this.onSubmit} setalert={this.setalert}>
           <input type="text" 
           name="text" 
           placeholder="Search Github User..."
@@ -56,7 +56,7 @@ class Search extends Component {
 Search.propTypes = {
   searchUsers : PropTypes.func.isRequired,
   clearUsers : PropTypes.func.isRequired,
-  setAlert : PropTypes.func.isRequired,
+  setalert : PropTypes.func.isRequired,
   showClear : PropTypes.bool.isRequired,
 }
 

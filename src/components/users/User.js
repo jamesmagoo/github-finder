@@ -1,40 +1,34 @@
-import React, { Component, Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import Spinner from '../layout/Spinner'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
 
-class User extends Component {
+const User = (props) => {
+  // destructure props
+  const {
+    name,
+    avatar_url,
+    location,
+    bio,
+    login,
+    html_url,
+    company,
+    blog,
+    followers,
+    following,
+    public_repos,
+    public_gists,
+    hireable
+  } = props.user ;
 
-  componentDidMount(){
-    this.props.getUser(this.props.match.params.login)
-  }
+  const {match , getUser, loading} = props ;
 
-  static propTypes ={
-    loading : PropTypes.bool.isRequired,
-    user : PropTypes.object.isRequired,
-    getUser : PropTypes.func.isRequired
-  }
-
-  render() {
-
-    const {
-      name,
-      avatar_url,
-      location,
-      bio,
-      login,
-      html_url,
-      company,
-      blog,
-      followers,
-      following,
-      public_repos,
-      public_gists,
-      hireable
-    } = this.props.user ;
-
-    const {loading } = this.props; 
+  // useEffect hook instead of componentDidMount() method in class-based component
+  useEffect(() => {
+    getUser(match.params.login);
+  }, [])
+   
     // if(this.props.loading === true){
     //   return(<Spinner/>)
     // } else {
@@ -94,7 +88,12 @@ class User extends Component {
       </div>
     </Fragment>
     )
-  }
+}
+
+User.propTypes ={
+  loading : PropTypes.bool.isRequired,
+  user : PropTypes.object.isRequired,
+  getUser : PropTypes.func.isRequired
 }
 
 export default User

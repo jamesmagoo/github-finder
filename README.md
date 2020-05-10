@@ -11,5 +11,7 @@ Process/Learning Notes
   * Env files local
   * State & props introduction, de-structuring etc. 
   * Passing props up, search api functionality
+  * Introduction to React Context & Hooks
+  * Rebuilding application to use Context & Hook instead of 'prop-drilling'
 
   

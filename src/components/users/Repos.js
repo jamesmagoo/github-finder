@@ -1,19 +1,18 @@
-import React, {Component, Fragment} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import RepoItem from './RepoItem'
 import PropTypes from 'prop-types'
 
 
-class Repos extends Component{
-  static propTypes ={
-    getRepos : PropTypes.func.isRequired,
-    repos : PropTypes.array.isRequired,
-  }
-  componentDidMount(){
-    this.props.getRepos(this.props.match.params.login)
-  }
+const Repos = (props) => {
+  // destructure props
+  const {match, repos, getRepos} = props ;
 
-  render (){
-    const {repos} = this.props;
+  // useEffect hook instead of componentDidMount() used in the class-based component
+  useEffect(() => {
+    getRepos(match.params.login)
+    //eslint-disable-next-line
+  }, [])
+
 
   return (
     <Fragment>
@@ -23,7 +22,11 @@ class Repos extends Component{
         ))}
     </Fragment>
   )
-  }
+}
+
+Repos.propTypes ={
+  getRepos : PropTypes.func.isRequired,
+  repos : PropTypes.array.isRequired,
 }
 
 export default Repos

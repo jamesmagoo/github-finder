@@ -1,11 +1,15 @@
-import React, {Fragment, useEffect} from 'react';
+import React, {Fragment, useEffect, useContext} from 'react';
 import RepoItem from './RepoItem'
-import PropTypes from 'prop-types'
+import GithubContext from '../../context/github/githubContext'
 
 
 const Repos = (props) => {
+  // instantiate github context
+  const githubContext = useContext(GithubContext);
+  // destructure
+  const {repos, getRepos} = githubContext ;
   // destructure props
-  const {match, repos, getRepos} = props ;
+  const {match} = props ;
 
   // useEffect hook instead of componentDidMount() used in the class-based component
   useEffect(() => {
@@ -24,9 +28,5 @@ const Repos = (props) => {
   )
 }
 
-Repos.propTypes ={
-  getRepos : PropTypes.func.isRequired,
-  repos : PropTypes.array.isRequired,
-}
 
 export default Repos

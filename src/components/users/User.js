@@ -1,11 +1,15 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useContext } from 'react'
 import Spinner from '../layout/Spinner'
-import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import GithubContext from '../../context/github/githubContext'
 
 
-const User = (props) => {
-  // destructure props
+const User = ({match}) => {
+  // instantiate githib context
+  const githubContext = useContext(GithubContext);
+  // destructure context object
+  const { getUser, user, loading } = githubContext ;
+  // destructure props from object
   const {
     name,
     avatar_url,
@@ -20,9 +24,9 @@ const User = (props) => {
     public_repos,
     public_gists,
     hireable
-  } = props.user ;
+  } = user ;
 
-  const {match , getUser, loading} = props ;
+  
 
   // useEffect hook instead of componentDidMount() method in class-based component
   useEffect(() => {
@@ -90,10 +94,5 @@ const User = (props) => {
     )
 }
 
-User.propTypes ={
-  loading : PropTypes.bool.isRequired,
-  user : PropTypes.object.isRequired,
-  getUser : PropTypes.func.isRequired
-}
 
 export default User

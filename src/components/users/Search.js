@@ -1,11 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
+import GithubContext from '../../context/github/githubContext'
+
 
 
 // component converted to function-based with use of hook and context for state
 const Search = (props) => {
+  // instantiate github context
+  const githubContext = useContext(GithubContext);
+  
   // destructuring
-  const {searchUsers, clearUsers, showAlert, showClear} = props ;
+  const {showAlert} = props ;
 
   // initialise state using hook useState
   const [text, setText] = useState('');
@@ -22,7 +27,7 @@ const Search = (props) => {
       showAlert('Please enter something' , 'light')
     } else {
     // props function to pass back to app.js
-      searchUsers(text);
+      githubContext.searchUsers(text);
       setText('');
     }
   }
@@ -43,17 +48,14 @@ const Search = (props) => {
           className ="btn btn-dark btn-block"
           />
         </form>
-        {showClear && <button className="btn btn-light btn-block" onClick = {clearUsers}>Clear Search</button> }
+        {githubContext.users.length > 0 && <button className="btn btn-light btn-block" onClick = {githubContext.clearUsers}>Clear Search</button> }
       </div>
     )
 }
 
 // prop types
 Search.propTypes = {
-  searchUsers : PropTypes.func.isRequired,
-  clearUsers : PropTypes.func.isRequired,
   showAlert : PropTypes.func.isRequired,
-  showClear : PropTypes.bool.isRequired,
 }
 
 

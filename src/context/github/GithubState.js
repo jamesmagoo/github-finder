@@ -4,12 +4,10 @@ import GithubContext from './githubContext';
 import GithubReducer from './githubReducer';
 import {
   SEARCH_USERS,
-  SET_ALERT,
   SET_LOADING,
   GET_REPOS,
   GET_USER,
   CLEAR_USERS,
-  REMOVE_ALERT
 } from '../types'
 
 const GithubState = (props) => {

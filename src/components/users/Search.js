@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
-import PropTypes from 'prop-types'
 import GithubContext from '../../context/github/githubContext'
+import AlertContext from '../../context/alert/alertContext'
 
 
 
@@ -8,9 +8,12 @@ import GithubContext from '../../context/github/githubContext'
 const Search = (props) => {
   // instantiate github context
   const githubContext = useContext(GithubContext);
+
+  // instantiate alert context
+  const alertContext = useContext(AlertContext);
   
   // destructuring
-  const {showAlert} = props ;
+  const {setAlert} = alertContext ;
 
   // initialise state using hook useState
   const [text, setText] = useState('');
@@ -24,7 +27,7 @@ const Search = (props) => {
     // validate input & set alert if inadequate
     if(text === ''){
       // set alert
-      showAlert('Please enter something' , 'light')
+      setAlert('Please enter something' , 'light')
     } else {
     // props function to pass back to app.js
       githubContext.searchUsers(text);
@@ -34,7 +37,7 @@ const Search = (props) => {
 
     return (
       <div>
-        <form onSubmit = {onSubmit} showAlert={showAlert}>
+        <form onSubmit = {onSubmit} setAlert={setAlert}>
           <input type="text" 
           name="text" 
           placeholder="Search Github User..."
@@ -53,10 +56,6 @@ const Search = (props) => {
     )
 }
 
-// prop types
-Search.propTypes = {
-  showAlert : PropTypes.func.isRequired,
-}
 
 
 export default Search

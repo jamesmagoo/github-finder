@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import AlertContext from '../../context/alert/alertContext';
 
-const Alert = ({alert}) => {
-  
+const Alert = () => {
+  // instantiate context
+  const alertContext = useContext(AlertContext)
+  // destructure
+  const {alert} = alertContext
   return (
     alert != null && 
       (
